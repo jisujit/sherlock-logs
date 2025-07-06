@@ -47,12 +47,40 @@ def read_log_file(file_path: str) -> None:
             if line.strip():
                 console.print(highlight_line(line))
 
-def main():
-    parser = argparse.ArgumentParser(description="Sherlock Logs - Simple Log Reader")
-    parser.add_argument('--file', '-f', type=str, required=True, help='Path to the log file to read')
+def process_folder(folder_path: str) -> None:
+    """
+    Process all `.log` files in the given folder and
+    display their contents with styled output.
+    """
+    if not os.path.isdir(folder_path):
+        print(f"❌ Error: Folder not found -> {folder_path}")
+        sys.exit(1)
+
+    log_files = [f for f in os.listdir(folder_path) if f.endswith(".log")]
+    if not log_files:
+        print(f"⚠️ No .log files found in folder: {folder_path}")
+        return
+
+    for log_file in log_files:
+        full_path = os.path.join(folder_path, log_file)
+        read_log_file(full_path)
+
+def main() -> None:
+    """
+    Entry point of the CLI tool.
+    Parses command-line arguments and determines
+    whether to process a single file or a folder.
+    """
+    parser = argparse.ArgumentParser(description="Sherlock Logs - Log Parser with CLI Support")
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument('--file', '-f', type=str, help='Path to a single log file')
+    group.add_argument('--folder', '-d', type=str, help='Path to a folder containing .log files')
     args = parser.parse_args()
 
-    read_log_file(args.file)
+    if args.file:
+        read_log_file(args.file)
+    elif args.folder:
+        process_folder(args.folder)
 
 if __name__ == "__main__":
     main()

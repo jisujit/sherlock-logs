@@ -1,0 +1,10 @@
+# Always use LF for shell scripts
+*.sh text eol=lf
+
+# Windows batch and PowerShell scripts can use CRLF
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+
+# Force all Markdown and text files to use LF
+*.md text eol=lf
+*.txt text eol=lf

@@ -30,22 +30,40 @@ def highlight_line(line: str) -> Text:
 
 def read_log_file(file_path: str) -> None:
     """
-    Reads the specified log file and prints each line with
-    styled output using Rich based on log severity levels.
-
-    Args:
-        file_path (str): Path to the log file to be read
+    Reads a log file and prints each line with styling.
+    Also collects and prints a summary of important keywords.
     """
     if not os.path.isfile(file_path):
         print(f"❌ Error: File not found -> {file_path}")
         sys.exit(1)
 
+    error_count = 0
+    warning_count = 0
+    ok_count = 0
+
     console.print(f"\n📄 [bold underline]Reading log file:[/] {file_path}\n")
 
     with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
         for line in f:
-            if line.strip():
-                console.print(highlight_line(line))
+            if not line.strip():
+                continue
+
+            styled_line = highlight_line(line)
+            console.print(styled_line)
+
+            lower = line.lower()
+            if any(w in lower for w in ["fatal", "failed", "error"]):
+                error_count += 1
+            elif any(w in lower for w in ["warning", "warn"]):
+                warning_count += 1
+            elif any(w in lower for w in ["ok", "changed", "success"]):
+                ok_count += 1
+
+    # 🧾 Summary section
+    console.print("\n[bold cyan]📊 Summary:[/]")
+    console.print(f"  ❌ Errors/Fatals : [bold red]{error_count}[/]")
+    console.print(f"  ⚠️  Warnings      : [bold yellow]{warning_count}[/]")
+    console.print(f"  ✅ OK/Changed    : [bold green]{ok_count}[/]\n")
 
 def process_folder(folder_path: str) -> None:
     """

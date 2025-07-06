@@ -1,10 +1,45 @@
-# Always use LF for shell scripts
+# --- Line Endings ---
+
+# Shell scripts: LF for Unix compatibility
 *.sh text eol=lf
 
-# Windows batch and PowerShell scripts can use CRLF
+# Windows-specific scripts: CRLF
 *.ps1 text eol=crlf
 *.bat text eol=crlf
+*.cmd text eol=crlf
 
-# Force all Markdown and text files to use LF
+# Markdown and text: LF
 *.md text eol=lf
 *.txt text eol=lf
+*.rst text eol=lf
+
+# Python files: LF
+*.py text eol=lf
+
+# JSON, YAML, config: LF
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.toml text eol=lf
+*.ini text eol=lf
+
+# Git-related
+.gitattributes text eol=lf
+.gitignore text eol=lf
+
+# --- Binary Files ---
+
+# Don't modify line endings for images or binaries
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.exe binary
+*.dll binary
+*.so binary
+*.pyc binary
+*.pyo binary
+*.pkl binary

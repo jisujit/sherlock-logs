@@ -1,5 +1,6 @@
 
 # 🕵️‍♂️ sherlock-logs
+![Python](https://img.shields.io/badge/python-3.11-blue) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg) ![Last Commit](https://img.shields.io/github/last-commit/jisujit/sherlock-logs)
 **sherlock-logs** is a Python tool to help developers and engineers quickly scan and highlight important entries in log files — especially errors and warnings.
 
 ## Features
@@ -75,6 +76,7 @@ chmod +x tools/setup-macos.sh
 ```
 This script performs the same steps as the Windows version.
 
+
 #### 💡 Manual activation required after script runs:
 ``` bash
 source venv-logAnalyzer/bin/activate
@@ -82,3 +84,6 @@ source venv-logAnalyzer/bin/activate
 ### 👤 Author
 Sujit Gangadharan
 GitHub: [github.com/jisujit](https://github.com/jisujit)
+
+## 📄 License
+Distributed under the [MIT License](LICENSE) — use it freely, just keep the credits. 🚀

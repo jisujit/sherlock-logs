@@ -1,0 +1,27 @@
+# Virtual environment folders
+venv*/
+.venv*/
+
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables
+.env
+.env.*
+
+# Logs and output
+*.log
+
+# IDE/editor folders
+.vscode/
+.idea/
+
+# macOS system files
+.DS_Store
+
+# Jupyter/pytest/mypy
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/

@@ -28,7 +28,7 @@ def highlight_line(line: str) -> Text:
     else:
         return Text(line.rstrip(), style="white")
 
-def read_log_file(file_path: str) -> None:
+def read_log_file(file_path: str, summary_only: bool = False) -> None:
     """
     Reads a log file and prints each line with styling.
     Also collects and prints a summary of important keywords.
@@ -48,9 +48,6 @@ def read_log_file(file_path: str) -> None:
             if not line.strip():
                 continue
 
-            styled_line = highlight_line(line)
-            console.print(styled_line)
-
             lower = line.lower()
             if any(w in lower for w in ["fatal", "failed", "error"]):
                 error_count += 1
@@ -59,13 +56,17 @@ def read_log_file(file_path: str) -> None:
             elif any(w in lower for w in ["ok", "changed", "success"]):
                 ok_count += 1
 
+            if not summary_only:
+                styled_line = highlight_line(line)
+                console.print(styled_line)
+
     # 🧾 Summary section
     console.print("\n[bold cyan]📊 Summary:[/]")
     console.print(f"  ❌ Errors/Fatals : [bold red]{error_count}[/]")
     console.print(f"  ⚠️  Warnings      : [bold yellow]{warning_count}[/]")
     console.print(f"  ✅ OK/Changed    : [bold green]{ok_count}[/]\n")
 
-def process_folder(folder_path: str) -> None:
+def process_folder(folder_path: str, summary_only: bool = False) -> None:
     """
     Process all `.log` files in the given folder and
     display their contents with styled output.
@@ -81,7 +82,7 @@ def process_folder(folder_path: str) -> None:
 
     for log_file in log_files:
         full_path = os.path.join(folder_path, log_file)
-        read_log_file(full_path)
+        read_log_file(full_path, summary_only=summary_only)
 
 def main() -> None:
     """
@@ -93,12 +94,13 @@ def main() -> None:
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('--file', '-f', type=str, help='Path to a single log file')
     group.add_argument('--folder', '-d', type=str, help='Path to a folder containing .log files')
+    parser.add_argument('--summary-only', '-s', action='store_true', help='Only print summary, skip full log output')
     args = parser.parse_args()
 
     if args.file:
-        read_log_file(args.file)
+        read_log_file(args.file, summary_only=args.summary_only)
     elif args.folder:
-        process_folder(args.folder)
+        process_folder(args.folder, summary_only=args.summary_only)
 
 if __name__ == "__main__":
     main()

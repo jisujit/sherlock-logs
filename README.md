@@ -1,90 +1,134 @@
-
 # 🕵️‍♂️ sherlock-logs
+
 ![Python](https://img.shields.io/badge/python-3.11-blue) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg) ![Last Commit](https://img.shields.io/github/last-commit/jisujit/sherlock-logs)
 
-**sherlock-logs** is a Python tool to help developers and engineers quickly scan and highlight important entries in log files — especially errors and warnings.
+**sherlock-logs** is a powerful Python-based CLI tool that helps developers, DevOps engineers, and sysadmins analyze log files quickly and efficiently. It highlights errors, warnings, and status entries using styled output, and provides summaries and export options.
 
-## Features
-- Highlights `ERROR` and `WARNING` lines in color
-- Simple, readable output using the [`rich`](https://github.com/Textualize/rich) library
-- Easy to extend for different log formats
+---
+
+## ✅ Features
+
+- 🎨 Highlighted output using the [`rich`](https://github.com/Textualize/rich) library
+  - `❌ ERROR / FATAL / FAILED` lines in red
+  - `⚠️ WARNING / WARN` lines in yellow
+  - `✅ OK / CHANGED / SUCCESS` lines in green
+- 📊 Summary report per log file
+- 🗂 Supports single log files and entire folders of `.log` files
+- 🔍 Optional keyword filtering (e.g. `--filter ssh`)
+- 📝 Export summary to `.json` or `.csv` (via `--export`)
+- 💡 `--summary-only` mode to skip full log output
+- 🧪 Unit testing support with `pytest`
+
+---
 
 ## 🛠️ Setup Instructions
 
 ### Step 1: Clone this repository
 ```bash
-git  clone  https://github.com/jisujit/sherlock-logs.git
-cd  sherlock-logs
+git clone https://github.com/jisujit/sherlock-logs.git
+cd sherlock-logs
 ```
 
-### Step  2:  Create  and  activate  a  virtual  environment
-``` powershell
-python  -m venv venv-logAnalyzer
-.env-logAnalyzer\Scripts\Activate.ps1
+### Step 2: Create and activate a virtual environment
+```powershell
+python -m venv venv-logAnalyzer
+.env-logAnalyzer\Scripts\Activate.ps1
 ```
+
 ### Step 3: Install dependencies
 ```bash
-pip  install  -r  requirements.txt
+pip install -r requirements.txt
 ```
 
-### ▶️ Run the Tool
+---
+
+## ▶️ Run the Tool
+
+### 🔹 Parse a single file
 ```bash
-#Run the parser
-python  log_parser.py
+python log_parser.py --file sample_logs/ansible_sample.log
 ```
 
-### 📁 Folder Structure
+### 🔹 Summary-only mode
+```bash
+python log_parser.py --file sample_logs/ansible_sample.log --summary-only
+```
+
+### 🔹 Export to JSON or CSV
+```bash
+python log_parser.py --folder sample_logs/ --summary-only --export all_logs.json
+python log_parser.py --folder sample_logs/ --summary-only --export all_logs.csv
+```
+
+### 🔹 Filter lines by keyword
+```bash
+python log_parser.py --file sample_logs/syslog_sample.log --filter ssh
+```
+
+---
+
+## 🧪 Run Unit Tests
+
+### 🔹 Enable pytest in VS Code (optional)
+- Go to: `Settings > Python > Testing`
+- Enable `pytest` and point to your virtual environment if needed
+
+### 🔹 Run tests from terminal
+```bash
+pytest test_log_parser.py
+```
+
+---
+
+## 📁 Folder Structure
 
 ```text
 sherlock-logs/
-├── venv-logAnalyzer/       # Virtual environment (ignored by Git)
-├── requirements.txt        # Installed dependencies
-├── .gitignore              # Ignored files and folders
-├── README.md               # Project overview
-├── tools/                  # Utility setup scripts
-│   ├── setup-windows.ps1   # Setup script for Windows
-│   └── setup-macos.sh      # Setup script for macOS/Linux
-└── log_parser.py           # Main script (to be created)
+├── sample_logs/             # Sample .log files
+├── test_log_parser.py       # Pytest-based unit tests
+├── requirements.txt         # Installed dependencies
+├── .gitignore
+├── README.md
+├── tools/                   # Setup helper scripts
+│   ├── setup-windows.ps1
+│   └── setup-macos.sh
+├── log_parser.py            # Main CLI tool
+└── venv-logAnalyzer/        # Virtual environment (ignored by Git)
 ```
 
-## 🔧 Optional: Setup Script
-If you prefer automated setup, use the provided platform-specific script to create and configure your virtual environment:
+---
+
+## 🔧 Optional: Use Setup Scripts
 
 ### 🪟 Windows
-``` powershell
-# Run from the root of the project
-.\tools\setup-windows.ps1
+```powershell
+.	.\tools\setup-windows.ps1
 ```
 
-##### This script will:
-- Create the venv-logAnalyzer virtual environment
-- Prompt you to activate it manually
-- Upgrade pip
-- Install packages from requirements.txt (if present)
-- Freeze installed packages back into requirements.txt
-
-#### 💡 Manual activation required after script runs:
-``` powershell
-.\venv-logAnalyzer\Scripts\Activate.ps1
+Then activate manually:
+```powershell
+.env-logAnalyzer\Scripts\Activate.ps1
 ```
+
+---
+
 ### 🍎 macOS / 🐧 Linux
-``` bash
-# Make script executable (first time only)
+```bash
 chmod +x tools/setup-macos.sh
-
-# Then run
 ./tools/setup-macos.sh
-```
-This script performs the same steps as the Windows version.
-
-
-#### 💡 Manual activation required after script runs:
-``` bash
 source venv-logAnalyzer/bin/activate
 ```
-### 👤 Author
-Sujit Gangadharan
-GitHub: [github.com/jisujit](https://github.com/jisujit)
+
+---
+
+## 👤 Author
+
+**Sujit Gangadharan**
+📫 GitHub: [github.com/jisujit](https://github.com/jisujit)
+
+---
 
 ## 📄 License
-Distributed under the [MIT License](LICENSE) — use it freely, just keep the credits. 🚀
+
+Distributed under the [MIT License](LICENSE).
+Use it freely — just keep the credits. 🚀

@@ -32,7 +32,7 @@ cd sherlock-logs
 ### Step 2: Create and activate a virtual environment
 ```powershell
 python -m venv venv-logAnalyzer
-.env-logAnalyzer\Scripts\Activate.ps1
+.\venv-logAnalyzer\Scripts\Activate.ps1
 ```
 
 ### Step 3: Install dependencies
@@ -107,7 +107,7 @@ sherlock-logs/
 
 Then activate manually:
 ```powershell
-.env-logAnalyzer\Scripts\Activate.ps1
+.\venv-logAnalyzer\Scripts\Activate.ps1
 ```
 
 ---

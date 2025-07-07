@@ -1,0 +1,20 @@
+[
+  {
+    "file": "ansible_sample.log",
+    "errors": 0,
+    "warnings": 0,
+    "ok": 0
+  },
+  {
+    "file": "ansible_sample2.log",
+    "errors": 1,
+    "warnings": 0,
+    "ok": 0
+  },
+  {
+    "file": "syslog_sample.log",
+    "errors": 1,
+    "warnings": 0,
+    "ok": 0
+  }
+]

@@ -31,7 +31,7 @@ def highlight_line(line: str) -> Text:
     else:
         return Text(line.rstrip(), style="white")
 
-def read_log_file(file_path: str, summary_only: bool = False) -> Dict[str, int]:
+def read_log_file(file_path: str, summary_only: bool = False, filter_keyword: str = None) -> Dict[str, int]:
     """
     Reads a log file and prints each line with styling.
     Also collects and prints a summary of important keywords.
@@ -51,6 +51,11 @@ def read_log_file(file_path: str, summary_only: bool = False) -> Dict[str, int]:
             if not line.strip():
                 continue
 
+            # Apply keyword filter if provided
+            if filter_keyword and filter_keyword.lower() not in line.lower():
+                continue
+
+            # Count types of log entries
             lower = line.lower()
             if any(w in lower for w in ["fatal", "failed", "error"]):
                 error_count += 1
@@ -59,6 +64,7 @@ def read_log_file(file_path: str, summary_only: bool = False) -> Dict[str, int]:
             elif any(w in lower for w in ["ok", "changed", "success"]):
                 ok_count += 1
 
+            # Only print line if not in summary-only mode
             if not summary_only:
                 styled_line = highlight_line(line)
                 console.print(styled_line)
@@ -77,7 +83,7 @@ def read_log_file(file_path: str, summary_only: bool = False) -> Dict[str, int]:
         "ok": ok_count
     }
 
-def process_folder(folder_path: str, summary_only: bool = False, export_path: str = None) -> None:
+def process_folder(folder_path: str, summary_only: bool = False, export_path: str = None, filter_keyword: str = None) -> None:
     """
     Process all `.log` files in the given folder and
     display their contents with styled output.
@@ -95,7 +101,7 @@ def process_folder(folder_path: str, summary_only: bool = False, export_path: st
         full_path = os.path.join(folder_path, log_file)
 
         # 🟩 Capture the summary returned from read_log_file()
-        summary = read_log_file(full_path, summary_only=summary_only)
+        summary = read_log_file(full_path, summary_only=summary_only, filter_keyword=filter_keyword)
 
         # 🟩 Write it to file if export path is set
         if export_path:
@@ -146,11 +152,13 @@ def main() -> None:
     group.add_argument('--folder', '-d', type=str, help='Path to a folder containing .log files')
     parser.add_argument('--summary-only', '-s', action='store_true', help='Only print summary, skip full log output')
     parser.add_argument('--export', '-e', type=str, help='Path to export summary (supports .json or .csv)')
+    parser.add_argument('--filter', type=str, help='Only show lines containing this keyword (case-insensitive)')
+
     args = parser.parse_args()
 
     if args.file:
         # 🟡 1. Capture summary returned from file parser
-        summary = read_log_file(args.file, summary_only=args.summary_only)
+        summary = read_log_file(args.file, summary_only=args.summary_only, filter_keyword=args.filter)
 
         # 🟡 2. If user provided --export, write the summary to file
         if args.export:
@@ -158,7 +166,7 @@ def main() -> None:
 
     elif args.folder:
         # 🟡 3. Pass export path to folder processor (you'll update process_folder to accept this)
-        process_folder(args.folder, summary_only=args.summary_only, export_path=args.export)
+        process_folder(args.folder, summary_only=args.summary_only, export_path=args.export, filter_keyword=args.filter)
 
 if __name__ == "__main__":
     main()

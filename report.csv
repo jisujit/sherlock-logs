@@ -1,0 +1,2 @@
+file,errors,warnings,ok
+ansible_sample.log,3,1,60

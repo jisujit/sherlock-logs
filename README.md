@@ -1,6 +1,7 @@
 # 🕵️‍♂️ sherlock-logs
 
 ![Python](https://img.shields.io/badge/python-3.11-blue) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg) ![Last Commit](https://img.shields.io/github/last-commit/jisujit/sherlock-logs) ![Issues](https://img.shields.io/github/issues/jisujit/sherlock-logs)
+![Test Status](https://github.com/jisujit/sherlock-logs/actions/workflows/python-tests.yml/badge.svg)
 
 **sherlock-logs** is a powerful Python-based CLI tool that helps developers, DevOps engineers, and sysadmins analyze log files quickly and efficiently. It highlights errors, warnings, and status entries using styled output, and provides summaries and export options.
 

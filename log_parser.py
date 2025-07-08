@@ -1,3 +1,15 @@
+"""
+log_parser.py
+
+A simple log analysis tool that scans a log file and highlights
+lines containing ERROR and WARNING messages using the rich library.
+
+Author: Sujit Gangadharan
+GitHub: https://github.com/jisujit
+Created: 2025-07-05
+License: MIT (see LICENSE file for details)
+"""
+
 import argparse
 import os
 import sys

@@ -14,6 +14,11 @@ __pycache__/
 # Logs and output
 *.log
 
+# But allow these test files
+!sample_logs/ansible_sample.log
+!sample_logs/ansible_sample2.log
+!sample_logs/syslog_sample.log
+
 # IDE/editor folders
 .vscode/
 .idea/

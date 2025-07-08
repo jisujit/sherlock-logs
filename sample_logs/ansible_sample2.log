@@ -1,0 +1,45 @@
+2025-07-06 14:15:22,456 p=23456 u=devops n=ansible | [WARNING]: Could not match supplied host pattern, ignoring: database-server-04
+2025-07-06 14:15:22,478 p=23456 u=devops n=ansible |
+2025-07-06 14:15:22,479 p=23456 u=devops n=ansible | PLAY [Configure database servers] *********************************************
+2025-07-06 14:15:22,480 p=23456 u=devops n=ansible |
+2025-07-06 14:15:22,481 p=23456 u=devops n=ansible | TASK [Gathering Facts] *********************************************************
+2025-07-06 14:15:22,482 p=23456 u=devops n=ansible | ok: [database-server-01]
+2025-07-06 14:15:23,123 p=23456 u=devops n=ansible | ok: [database-server-02]
+2025-07-06 14:15:23,456 p=23456 u=devops n=ansible | unreachable: [database-server-03] => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host database-server-03 port 22: Connection refused", "unreachable": true}
+2025-07-06 14:15:23,789 p=23456 u=devops n=ansible |
+2025-07-06 14:15:23,790 p=23456 u=devops n=ansible | TASK [Install MySQL server] ***************************************************
+2025-07-06 14:15:23,791 p=23456 u=devops n=ansible | changed: [database-server-01]
+2025-07-06 14:15:28,234 p=23456 u=devops n=ansible | failed: [database-server-02] => {"changed": false, "msg": "No package matching 'mysql-server' is available", "rc": 1}
+2025-07-06 14:15:28,567 p=23456 u=devops n=ansible |
+2025-07-06 14:15:28,568 p=23456 u=devops n=ansible | TASK [Start MySQL service] ****************************************************
+2025-07-06 14:15:28,569 p=23456 u=devops n=ansible | changed: [database-server-01]
+2025-07-06 14:15:29,890 p=23456 u=devops n=ansible |
+2025-07-06 14:15:29,891 p=23456 u=devops n=ansible | TASK [Create database user] ***************************************************
+2025-07-06 14:15:29,892 p=23456 u=devops n=ansible | [WARNING]: Module did not set no_log for update_password
+2025-07-06 14:15:29,893 p=23456 u=devops n=ansible | changed: [database-server-01]
+2025-07-06 14:15:30,234 p=23456 u=devops n=ansible |
+2025-07-06 14:15:30,235 p=23456 u=devops n=ansible | TASK [Copy database configuration] ********************************************
+2025-07-06 14:15:30,236 p=23456 u=devops n=ansible | [WARNING]: Consider using the file module with state=directory rather than running 'mkdir'
+2025-07-06 14:15:30,237 p=23456 u=devops n=ansible | changed: [database-server-01]
+2025-07-06 14:15:30,890 p=23456 u=devops n=ansible |
+2025-07-06 14:15:30,891 p=23456 u=devops n=ansible | TASK [Set file permissions] ***************************************************
+2025-07-06 14:15:30,892 p=23456 u=devops n=ansible | failed: [database-server-01] => {"changed": false, "msg": "chown: cannot access '/etc/mysql/custom.cnf': No such file or directory", "rc": 1}
+2025-07-06 14:15:31,123 p=23456 u=devops n=ansible |
+2025-07-06 14:15:31,124 p=23456 u=devops n=ansible | TASK [Configure firewall] *****************************************************
+2025-07-06 14:15:31,125 p=23456 u=devops n=ansible | [WARNING]: The value "3306" (type int) in a string field was converted to "3306" (type string). If this does not look like what you expect, quote the entire value to ensure it does not change.
+2025-07-06 14:15:31,126 p=23456 u=devops n=ansible | changed: [database-server-01]
+2025-07-06 14:15:32,456 p=23456 u=devops n=ansible |
+2025-07-06 14:15:32,457 p=23456 u=devops n=ansible | TASK [Test database connection] ***********************************************
+2025-07-06 14:15:32,458 p=23456 u=devops n=ansible | [DEPRECATION WARNING]: The 'mysql_db' module has been moved to the 'community.mysql' collection. This feature will be removed from ansible-core in version 2.17. Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2025-07-06 14:15:32,459 p=23456 u=devops n=ansible | fatal: [database-server-01] => {"changed": false, "msg": "unable to connect to database, check login_user and login_password are correct or /root/.my.cnf has the credentials. Exception message: (1045, \"Access denied for user 'root'@'localhost' (using password: YES)\")", "rc": 1}
+2025-07-06 14:15:32,790 p=23456 u=devops n=ansible |
+2025-07-06 14:15:32,791 p=23456 u=devops n=ansible | TASK [Backup existing database] ***********************************************
+2025-07-06 14:15:32,792 p=23456 u=devops n=ansible | skipping: [database-server-01] => {"changed": false, "skip_reason": "Conditional result was False"}
+2025-07-06 14:15:32,793 p=23456 u=devops n=ansible |
+2025-07-06 14:15:32,794 p=23456 u=devops n=ansible | PLAY RECAP *********************************************************************
+2025-07-06 14:15:32,795 p=23456 u=devops n=ansible | database-server-01         : ok=5    changed=4    unreachable=0    failed=2    skipped=1    rescued=0    ignored=0
+2025-07-06 14:15:32,796 p=23456 u=devops n=ansible | database-server-02         : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0
+2025-07-06 14:15:32,797 p=23456 u=devops n=ansible | database-server-03         : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0
+2025-07-06 14:15:32,798 p=23456 u=devops n=ansible |
+2025-07-06 14:15:32,799 p=23456 u=devops n=ansible | [ERROR]: Playbook execution failed with errors on multiple hosts
+2025-07-06 14:15:32,800 p=23456 u=devops n=ansible | Sunday 06 July 2025  14:15:32 -0400 (0:00:00.456)       0:00:10.344 ********

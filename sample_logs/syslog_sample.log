@@ -1,0 +1,75 @@
+Jul  6 10:30:15 web-server-01 kernel: [    0.000000] Linux version 5.15.0-73-generic (buildd@lcy02-amd64-044) (gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #80-Ubuntu SMP Mon May 15 15:18:26 UTC 2023
+Jul  6 10:30:15 web-server-01 systemd[1]: Starting Network Manager...
+Jul  6 10:30:15 web-server-01 systemd[1]: Started Network Manager.
+Jul  6 10:30:16 web-server-01 NetworkManager[1234]: <info>  [1688634616.123] NetworkManager (version 1.36.6) is starting... (for the first time)
+Jul  6 10:30:16 web-server-01 NetworkManager[1234]: <info>  [1688634616.456] Read config: /etc/NetworkManager/NetworkManager.conf
+Jul  6 10:30:17 web-server-01 systemd[1]: Started OpenSSH server daemon.
+Jul  6 10:30:17 web-server-01 sshd[1456]: Server listening on 0.0.0.0 port 22.
+Jul  6 10:30:17 web-server-01 sshd[1456]: Server listening on :: port 22.
+Jul  6 10:30:18 web-server-01 systemd[1]: Starting Docker Application Container Engine...
+Jul  6 10:30:18 web-server-01 dockerd[1789]: time="2025-07-06T10:30:18.123456789-04:00" level=info msg="Starting up"
+Jul  6 10:30:19 web-server-01 dockerd[1789]: time="2025-07-06T10:30:19.456789123-04:00" level=warning msg="Your kernel does not support cgroup blkio weight"
+Jul  6 10:30:19 web-server-01 dockerd[1789]: time="2025-07-06T10:30:19.789123456-04:00" level=warning msg="Your kernel does not support cgroup blkio weight_device"
+Jul  6 10:30:20 web-server-01 systemd[1]: Started Docker Application Container Engine.
+Jul  6 10:30:21 web-server-01 cron[2234]: (CRON) INFO (pidfile fd = 3)
+Jul  6 10:30:21 web-server-01 cron[2234]: (CRON) INFO (Running @reboot jobs)
+Jul  6 10:30:22 web-server-01 systemd[1]: Started Authorization Manager.
+Jul  6 10:30:23 web-server-01 systemd[1]: Starting Snap Daemon...
+Jul  6 10:30:24 web-server-01 snapd[2567]: daemon.go:247: started snapd/2.58+22.04ubuntu1 (series 16; classic) ubuntu/22.04 (amd64) linux/5.15.0-73-generic.
+Jul  6 10:30:25 web-server-01 systemd[1]: Started Snap Daemon.
+Jul  6 10:30:26 web-server-01 NetworkManager[1234]: <warn>  [1688634626.789] dhcp4 (enp0s3): request timed out
+Jul  6 10:30:27 web-server-01 NetworkManager[1234]: <warn>  [1688634627.123] dhcp4 (enp0s3): state changed unknown -> timeout
+Jul  6 10:30:28 web-server-01 systemd[1]: nginx.service: Failed with result 'exit-code'.
+Jul  6 10:30:28 web-server-01 systemd[1]: Failed to start A high performance web server and a reverse proxy server.
+Jul  6 10:30:29 web-server-01 kernel: [   29.456789] Out of memory: Kill process 3456 (java) score 789 or sacrifice child
+Jul  6 10:30:29 web-server-01 kernel: [   29.456890] Killed process 3456 (java) total-vm:8GB, anon-rss:6GB, file-rss:512MB, shmem-rss:0kB
+Jul  6 10:30:30 web-server-01 systemd[1]: myapp.service: Main process exited, code=killed, status=9/KILL
+Jul  6 10:30:30 web-server-01 systemd[1]: myapp.service: Failed with result 'signal'.
+Jul  6 10:30:30 web-server-01 systemd[1]: myapp.service: Scheduled restart job, restart counter is at 1.
+Jul  6 10:30:31 web-server-01 systemd[1]: Stopped My Application Service.
+Jul  6 10:30:31 web-server-01 systemd[1]: Started My Application Service.
+Jul  6 10:30:32 web-server-01 sshd[4567]: Connection from 192.168.1.100 port 54321 on 10.0.2.15 port 22
+Jul  6 10:30:32 web-server-01 sshd[4567]: Accepted publickey for ubuntu from 192.168.1.100 port 54321 ssh2: RSA SHA256:abcd1234efgh5678
+Jul  6 10:30:33 web-server-01 sudo[4789]: ubuntu : TTY=pts/0 ; PWD=/home/ubuntu ; USER=root ; COMMAND=/usr/bin/systemctl status nginx
+Jul  6 10:30:33 web-server-01 sudo[4789]: pam_unix(sudo:session): session opened for user root by ubuntu(uid=1000)
+Jul  6 10:30:34 web-server-01 sudo[4789]: pam_unix(sudo:session): session closed for user root
+Jul  6 10:30:35 web-server-01 systemd[1]: Starting A high performance web server and a reverse proxy server...
+Jul  6 10:30:35 web-server-01 nginx[5123]: nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+Jul  6 10:30:35 web-server-01 nginx[5123]: nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+Jul  6 10:30:35 web-server-01 nginx[5123]: nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+Jul  6 10:30:35 web-server-01 nginx[5123]: nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+Jul  6 10:30:35 web-server-01 nginx[5123]: nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+Jul  6 10:30:35 web-server-01 nginx[5123]: nginx: [emerg] still could not bind()
+Jul  6 10:30:35 web-server-01 systemd[1]: nginx.service: Control process exited, code=exited, status=1/FAILURE
+Jul  6 10:30:35 web-server-01 systemd[1]: nginx.service: Failed with result 'exit-code'.
+Jul  6 10:30:35 web-server-01 systemd[1]: Failed to start A high performance web server and a reverse proxy server.
+Jul  6 10:30:36 web-server-01 cron[2234]: (CRON) ERROR (failed to open PAM security session: Authentication failure)
+Jul  6 10:30:37 web-server-01 systemd[1]: session-4.scope: Succeeded.
+Jul  6 10:30:38 web-server-01 kernel: [   58.789123] EXT4-fs (sda1): mounted filesystem with ordered data mode. Opts: (null)
+Jul  6 10:30:39 web-server-01 systemd[1]: Starting Daily apt download activities...
+Jul  6 10:30:40 web-server-01 systemd[1]: apt-daily.service: Succeeded.
+Jul  6 10:30:40 web-server-01 systemd[1]: Finished Daily apt download activities.
+Jul  6 10:30:41 web-server-01 rsyslog[5678]: [origin software="rsyslogd" swVersion="8.2112.0" x-pid="5678" x-info="https://www.rsyslog.com"] start
+Jul  6 10:30:42 web-server-01 dbus-daemon[1012]: [system] Successfully activated service 'org.freedesktop.systemd1'
+Jul  6 10:30:43 web-server-01 systemd[1]: Started Daily apt upgrade and clean activities.
+Jul  6 10:30:44 web-server-01 postfix/master[6789]: daemon started -- version 3.6.4, configuration /etc/postfix
+Jul  6 10:30:45 web-server-01 postfix/pickup[6801]: uid=33 from=<www-data>
+Jul  6 10:30:45 web-server-01 postfix/cleanup[6802]: warning: database /etc/postfix/virtual.db is older than source file /etc/postfix/virtual
+Jul  6 10:30:46 web-server-01 systemd[1]: Starting Disk Manager...
+Jul  6 10:30:47 web-server-01 udisks2[7123]: udisks daemon version 2.9.2 starting
+Jul  6 10:30:48 web-server-01 systemd[1]: Started Disk Manager.
+Jul  6 10:30:49 web-server-01 systemd-logind[1345]: New session 5 of user ubuntu.
+Jul  6 10:30:50 web-server-01 sshd[7456]: pam_unix(sshd:session): session opened for user ubuntu by (uid=0)
+Jul  6 10:30:51 web-server-01 kernel: [   71.234567] TCP: request_sock_TCP: Possible SYN flooding on port 80. Sending cookies.  Check SNMP counters.
+Jul  6 10:30:52 web-server-01 kernel: [   72.345678] audit: type=1400 audit(1688634652.345:123): apparmor="DENIED" operation="open" profile="/usr/sbin/apache2" name="/proc/version" pid=7890 comm="apache2" requested_mask="r" denied_mask="r" fsuid=33 ouid=0
+Jul  6 10:30:53 web-server-01 systemd[1]: Started Authorization Manager.
+Jul  6 10:30:54 web-server-01 systemd[1]: Starting Light Display Manager...
+Jul  6 10:30:55 web-server-01 lightdm[8123]: DEBUG: Loading configuration dirs from /usr/share/lightdm/lightdm.conf.d
+Jul  6 10:30:56 web-server-01 lightdm[8123]: DEBUG: Loading configuration from /etc/lightdm/lightdm.conf
+Jul  6 10:30:57 web-server-01 lightdm[8123]: DEBUG: Registered seat module local
+Jul  6 10:30:58 web-server-01 systemd[1]: Started Light Display Manager.
+Jul  6 10:30:59 web-server-01 cron[2234]: (CRON) INFO (pidfile fd = 3)
+Jul  6 10:31:00 web-server-01 CRON[8456]: (root) CMD (test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.hourly ))
+Jul  6 10:31:01 web-server-01 systemd[1]: Started Run anacron jobs.
+Jul  6 10:31:02 web-server-01 systemd[1]: anacron.service: Succeeded.
+Jul  6 10:31:03 web-server-01 systemd[1]: Finished Run anacron jobs.

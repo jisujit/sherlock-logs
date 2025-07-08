@@ -1,0 +1,113 @@
+2025-07-06 10:30:15,123 p=12345 u=devops n=ansible | [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+2025-07-06 10:30:15,145 p=12345 u=devops n=ansible |
+2025-07-06 10:30:15,146 p=12345 u=devops n=ansible | PLAY [Deploy web application] *************************************************
+2025-07-06 10:30:15,147 p=12345 u=devops n=ansible |
+2025-07-06 10:30:15,148 p=12345 u=devops n=ansible | TASK [Gathering Facts] *********************************************************
+2025-07-06 10:30:15,149 p=12345 u=devops n=ansible | ok: [web-server-01]
+2025-07-06 10:30:15,834 p=12345 u=devops n=ansible | ok: [web-server-02]
+2025-07-06 10:30:16,112 p=12345 u=devops n=ansible | ok: [web-server-03]
+2025-07-06 10:30:16,345 p=12345 u=devops n=ansible |
+2025-07-06 10:30:16,346 p=12345 u=devops n=ansible | TASK [Update package cache] ***************************************************
+2025-07-06 10:30:16,347 p=12345 u=devops n=ansible | changed: [web-server-01]
+2025-07-06 10:30:18,892 p=12345 u=devops n=ansible | changed: [web-server-02]
+2025-07-06 10:30:19,234 p=12345 u=devops n=ansible | changed: [web-server-03]
+2025-07-06 10:30:19,567 p=12345 u=devops n=ansible |
+2025-07-06 10:30:19,568 p=12345 u=devops n=ansible | TASK [Install required packages] **********************************************
+2025-07-06 10:30:19,569 p=12345 u=devops n=ansible | changed: [web-server-01] => (item=nginx)
+2025-07-06 10:30:22,123 p=12345 u=devops n=ansible | changed: [web-server-01] => (item=python3-pip)
+2025-07-06 10:30:24,456 p=12345 u=devops n=ansible | changed: [web-server-01] => (item=git)
+2025-07-06 10:30:26,789 p=12345 u=devops n=ansible | changed: [web-server-02] => (item=nginx)
+2025-07-06 10:30:29,234 p=12345 u=devops n=ansible | changed: [web-server-02] => (item=python3-pip)
+2025-07-06 10:30:31,567 p=12345 u=devops n=ansible | changed: [web-server-02] => (item=git)
+2025-07-06 10:30:33,890 p=12345 u=devops n=ansible | changed: [web-server-03] => (item=nginx)
+2025-07-06 10:30:36,123 p=12345 u=devops n=ansible | changed: [web-server-03] => (item=python3-pip)
+2025-07-06 10:30:38,456 p=12345 u=devops n=ansible | changed: [web-server-03] => (item=git)
+2025-07-06 10:30:40,789 p=12345 u=devops n=ansible |
+2025-07-06 10:30:40,790 p=12345 u=devops n=ansible | TASK [Create application user] ************************************************
+2025-07-06 10:30:40,791 p=12345 u=devops n=ansible | changed: [web-server-01]
+2025-07-06 10:30:41,234 p=12345 u=devops n=ansible | changed: [web-server-02]
+2025-07-06 10:30:41,567 p=12345 u=devops n=ansible | changed: [web-server-03]
+2025-07-06 10:30:41,890 p=12345 u=devops n=ansible |
+2025-07-06 10:30:41,891 p=12345 u=devops n=ansible | TASK [Create application directory] *******************************************
+2025-07-06 10:30:41,892 p=12345 u=devops n=ansible | changed: [web-server-01]
+2025-07-06 10:30:42,123 p=12345 u=devops n=ansible | changed: [web-server-02]
+2025-07-06 10:30:42,456 p=12345 u=devops n=ansible | changed: [web-server-03]
+2025-07-06 10:30:42,789 p=12345 u=devops n=ansible |
+2025-07-06 10:30:42,790 p=12345 u=devops n=ansible | TASK [Clone application repository] *******************************************
+2025-07-06 10:30:42,791 p=12345 u=devops n=ansible | changed: [web-server-01]
+2025-07-06 10:30:45,234 p=12345 u=devops n=ansible | changed: [web-server-02]
+2025-07-06 10:30:47,567 p=12345 u=devops n=ansible | changed: [web-server-03]
+2025-07-06 10:30:49,890 p=12345 u=devops n=ansible |
+2025-07-06 10:30:49,891 p=12345 u=devops n=ansible | TASK [Install Python dependencies] ********************************************
+2025-07-06 10:30:49,892 p=12345 u=devops n=ansible | changed: [web-server-01]
+2025-07-06 10:30:52,123 p=12345 u=devops n=ansible | changed: [web-server-02]
+2025-07-06 10:30:54,456 p=12345 u=devops n=ansible | changed: [web-server-03]
+2025-07-06 10:30:56,789 p=12345 u=devops n=ansible |
+2025-07-06 10:30:56,790 p=12345 u=devops n=ansible | TASK [Copy nginx configuration] ***********************************************
+2025-07-06 10:30:56,791 p=12345 u=devops n=ansible | changed: [web-server-01]
+2025-07-06 10:30:57,234 p=12345 u=devops n=ansible | changed: [web-server-02]
+2025-07-06 10:30:57,567 p=12345 u=devops n=ansible | changed: [web-server-03]
+2025-07-06 10:30:57,890 p=12345 u=devops n=ansible |
+2025-07-06 10:30:57,891 p=12345 u=devops n=ansible | TASK [Copy application configuration] *****************************************
+2025-07-06 10:30:57,892 p=12345 u=devops n=ansible | changed: [web-server-01]
+2025-07-06 10:30:58,123 p=12345 u=devops n=ansible | changed: [web-server-02]
+2025-07-06 10:30:58,456 p=12345 u=devops n=ansible | changed: [web-server-03]
+2025-07-06 10:30:58,789 p=12345 u=devops n=ansible |
+2025-07-06 10:30:58,790 p=12345 u=devops n=ansible | TASK [Create systemd service file] ********************************************
+2025-07-06 10:30:58,791 p=12345 u=devops n=ansible | changed: [web-server-01]
+2025-07-06 10:30:59,234 p=12345 u=devops n=ansible | changed: [web-server-02]
+2025-07-06 10:30:59,567 p=12345 u=devops n=ansible | changed: [web-server-03]
+2025-07-06 10:30:59,890 p=12345 u=devops n=ansible |
+2025-07-06 10:30:59,891 p=12345 u=devops n=ansible | TASK [Start and enable nginx service] *****************************************
+2025-07-06 10:30:59,892 p=12345 u=devops n=ansible | ok: [web-server-01]
+2025-07-06 10:31:00,123 p=12345 u=devops n=ansible | changed: [web-server-02]
+2025-07-06 10:31:00,456 p=12345 u=devops n=ansible | ok: [web-server-03]
+2025-07-06 10:31:00,789 p=12345 u=devops n=ansible |
+2025-07-06 10:31:00,790 p=12345 u=devops n=ansible | TASK [Start and enable application service] ***********************************
+2025-07-06 10:31:00,791 p=12345 u=devops n=ansible | changed: [web-server-01]
+2025-07-06 10:31:01,234 p=12345 u=devops n=ansible | changed: [web-server-02]
+2025-07-06 10:31:01,567 p=12345 u=devops n=ansible | changed: [web-server-03]
+2025-07-06 10:31:01,890 p=12345 u=devops n=ansible |
+2025-07-06 10:31:01,891 p=12345 u=devops n=ansible | TASK [Wait for application to be ready] ***************************************
+2025-07-06 10:31:01,892 p=12345 u=devops n=ansible | ok: [web-server-01]
+2025-07-06 10:31:02,123 p=12345 u=devops n=ansible | ok: [web-server-02]
+2025-07-06 10:31:02,456 p=12345 u=devops n=ansible | ok: [web-server-03]
+2025-07-06 10:31:02,789 p=12345 u=devops n=ansible |
+2025-07-06 10:31:02,790 p=12345 u=devops n=ansible | TASK [Verify application is responding] ***************************************
+2025-07-06 10:31:02,791 p=12345 u=devops n=ansible | ok: [web-server-01]
+2025-07-06 10:31:03,234 p=12345 u=devops n=ansible | ok: [web-server-02]
+2025-07-06 10:31:03,567 p=12345 u=devops n=ansible | ok: [web-server-03]
+2025-07-06 10:31:03,890 p=12345 u=devops n=ansible |
+2025-07-06 10:31:03,891 p=12345 u=devops n=ansible | TASK [Configure firewall rules] ***********************************************
+2025-07-06 10:31:03,892 p=12345 u=devops n=ansible | changed: [web-server-01] => (item=80/tcp)
+2025-07-06 10:31:04,123 p=12345 u=devops n=ansible | changed: [web-server-01] => (item=443/tcp)
+2025-07-06 10:31:04,456 p=12345 u=devops n=ansible | changed: [web-server-02] => (item=80/tcp)
+2025-07-06 10:31:04,789 p=12345 u=devops n=ansible | changed: [web-server-02] => (item=443/tcp)
+2025-07-06 10:31:05,123 p=12345 u=devops n=ansible | changed: [web-server-03] => (item=80/tcp)
+2025-07-06 10:31:05,456 p=12345 u=devops n=ansible | changed: [web-server-03] => (item=443/tcp)
+2025-07-06 10:31:05,789 p=12345 u=devops n=ansible |
+2025-07-06 10:31:05,790 p=12345 u=devops n=ansible | TASK [Setup log rotation] *****************************************************
+2025-07-06 10:31:05,791 p=12345 u=devops n=ansible | changed: [web-server-01]
+2025-07-06 10:31:06,234 p=12345 u=devops n=ansible | changed: [web-server-02]
+2025-07-06 10:31:06,567 p=12345 u=devops n=ansible | changed: [web-server-03]
+2025-07-06 10:31:06,890 p=12345 u=devops n=ansible |
+2025-07-06 10:31:06,891 p=12345 u=devops n=ansible | TASK [Clean up temporary files] ***********************************************
+2025-07-06 10:31:06,892 p=12345 u=devops n=ansible | ok: [web-server-01]
+2025-07-06 10:31:07,123 p=12345 u=devops n=ansible | ok: [web-server-02]
+2025-07-06 10:31:07,456 p=12345 u=devops n=ansible | ok: [web-server-03]
+2025-07-06 10:31:07,789 p=12345 u=devops n=ansible |
+2025-07-06 10:31:07,790 p=12345 u=devops n=ansible | PLAY RECAP *********************************************************************
+2025-07-06 10:31:07,791 p=12345 u=devops n=ansible | web-server-01             : ok=16   changed=13   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+2025-07-06 10:31:07,792 p=12345 u=devops n=ansible | web-server-02             : ok=16   changed=14   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+2025-07-06 10:31:07,793 p=12345 u=devops n=ansible | web-server-03             : ok=16   changed=13   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+2025-07-06 10:31:07,794 p=12345 u=devops n=ansible |
+2025-07-06 10:31:07,795 p=12345 u=devops n=ansible | Sunday 06 July 2025  10:31:07 -0400 (0:00:00.123)       0:00:52.651 ********
+2025-07-06 10:31:07,796 p=12345 u=devops n=ansible | ===============================================================================
+2025-07-06 10:31:07,797 p=12345 u=devops n=ansible | Install required packages --------------------------------------------- 21.22s
+2025-07-06 10:31:07,798 p=12345 u=devops n=ansible | Install Python dependencies --------------------------------------- 7.90s
+2025-07-06 10:31:07,799 p=12345 u=devops n=ansible | Clone application repository -------------------------------------- 7.10s
+2025-07-06 10:31:07,800 p=12345 u=devops n=ansible | Update package cache ---------------------------------------------- 3.22s
+2025-07-06 10:31:07,801 p=12345 u=devops n=ansible | Gathering Facts --------------------------------------------------- 1.20s
+2025-07-06 10:31:07,802 p=12345 u=devops n=ansible | Configure firewall rules ----------------------------------------- 1.90s
+2025-07-06 10:31:07,803 p=12345 u=devops n=ansible | Start and enable application service --------------------------- 1.10s
+2025-07-06 10:31:07,804 p=12345 u=devops n=ansible | All other tasks -------------------------------------------------- 8.87s

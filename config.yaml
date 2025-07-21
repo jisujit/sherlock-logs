@@ -1,0 +1,9 @@
+log_sources:
+  - path: "./sample_logs/ansible_sample.log"
+  - path: "./sample_logs/ansible_sample2.log"
+  - path: "./sample_logs/syslog_sample.log"
+
+options:
+  summary_only: true
+  filter: "ssh"
+  export_path: "output/summary.json"

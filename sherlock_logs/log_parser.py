@@ -16,8 +16,10 @@ import sys
 import json
 import csv
 from typing import Dict
+import yaml
 from rich.console import Console
 from rich.text import Text
+from sherlock_logs.config_loader import load_config, ConfigLoadError
 
 console = Console()
 
@@ -49,7 +51,7 @@ def read_log_file(file_path: str, summary_only: bool = False, filter_keyword: st
     Also collects and prints a summary of important keywords.
     """
     if not os.path.isfile(file_path):
-        print(f"❌ Error: File not found -> {file_path}")
+        console.print(f"❌ Error: File not found -> {file_path}")
         sys.exit(1)
 
     error_count = 0
@@ -101,12 +103,12 @@ def process_folder(folder_path: str, summary_only: bool = False, export_path: st
     display their contents with styled output.
     """
     if not os.path.isdir(folder_path):
-        print(f"❌ Error: Folder not found -> {folder_path}")
+        console.print(f"❌ Error: Folder not found -> {folder_path}")
         sys.exit(1)
 
     log_files = [f for f in os.listdir(folder_path) if f.endswith(".log")]
     if not log_files:
-        print(f"⚠️ No .log files found in folder: {folder_path}")
+        console.print(f"⚠️ No .log files found in folder: {folder_path}")
         return
 
     for log_file in log_files:
@@ -132,18 +134,18 @@ def write_summary(file_path: str, summary: dict, export_path: str) -> None:
     if export_path.endswith(".json"):
         existing = []
         if os.path.isfile(export_path):
-            with open(export_path, "r") as f:
+            with open(export_path, "r", encoding="utf-8") as f:
                 try:
                     existing = json.load(f)
                 except json.JSONDecodeError:
                     pass
         existing.append(summary_data)
-        with open(export_path, "w") as f:
+        with open(export_path, "w", encoding="utf-8") as f:
             json.dump(existing, f, indent=2)
 
     elif export_path.endswith(".csv"):
         write_header = not os.path.isfile(export_path)
-        with open(export_path, "a", newline="") as f:
+        with open(export_path, "a", newline="", encoding="utf-8") as f:
             writer = csv.DictWriter(f, fieldnames=summary_data.keys())
             if write_header:
                 writer.writeheader()
@@ -152,33 +154,90 @@ def write_summary(file_path: str, summary: dict, export_path: str) -> None:
     else:
         console.print(f"[red]❌ Unsupported export format: {export_path}[/]")
 
-def main() -> None:
+def parse_arguments() -> argparse.Namespace:
     """
-    Entry point of the CLI tool.
-    Parses command-line arguments and determines
-    whether to process a single file or a folder.
+    Parse command-line arguments.
     """
     parser = argparse.ArgumentParser(description="Sherlock Logs - Log Parser with CLI Support")
-    group = parser.add_mutually_exclusive_group(required=True)
+    # Temporarily allow all args to be optional (we'll validate later)
+    group = parser.add_mutually_exclusive_group()
     group.add_argument('--file', '-f', type=str, help='Path to a single log file')
     group.add_argument('--folder', '-d', type=str, help='Path to a folder containing .log files')
     parser.add_argument('--summary-only', '-s', action='store_true', help='Only print summary, skip full log output')
     parser.add_argument('--export', '-e', type=str, help='Path to export summary (supports .json or .csv)')
     parser.add_argument('--filter', type=str, help='Only show lines containing this keyword (case-insensitive)')
+    parser.add_argument('--config', type=str, help='Path to a config.yaml file to override CLI options')
 
     args = parser.parse_args()
 
-    if args.file:
-        # 🟡 1. Capture summary returned from file parser
-        summary = read_log_file(args.file, summary_only=args.summary_only, filter_keyword=args.filter)
+    # Manual validation: either --config or one of --file/--folder must be present
+    if not (args.file or args.folder or args.config):
+        parser.error("At least one of --file, --folder, or --config must be specified.")
 
-        # 🟡 2. If user provided --export, write the summary to file
-        if args.export:
-            write_summary(args.file, summary, args.export)
+    return args
 
+
+def run_from_file(file_path: str, summary_only: bool, export_path: str, filter_keyword: str) -> None:
+    """
+    Process a single log file using the given parameters.
+    Outputs styled log lines and optionally exports a summary.
+    """
+    summary = read_log_file(file_path, summary_only=summary_only, filter_keyword=filter_keyword)
+    if export_path:
+        write_summary(file_path, summary, export_path)
+
+
+def run_from_folder(folder_path: str, summary_only: bool, export_path: str, filter_keyword: str) -> None:
+    """
+    Process all .log files in a folder using the given parameters.
+    Outputs styled log lines and optionally exports a summary per file.
+    """
+    process_folder(folder_path, summary_only=summary_only, export_path=export_path, filter_keyword=filter_keyword)
+
+def run_from_config(config_path: str) -> None:
+    """
+    Load configuration from a YAML file and process all specified log sources.
+    Config options can override CLI arguments.
+    """
+    try:
+        config = load_config(config_path)
+    except ConfigLoadError as e:
+        console.print(f"[bold red]❌ YAML parsing error:[/] {e}")
+        sys.exit(1)
+
+    log_sources = config.get("log_sources", [])
+    options = config.get("options", {})
+
+    summary_only = options.get("summary_only", False)
+    filter_keyword = options.get("filter", None)
+    export_path = options.get("export_path", None)
+
+    for source in log_sources:
+        path = source.get("path")
+        if not path:
+            continue
+
+        if os.path.isdir(path):
+            run_from_folder(path, summary_only, export_path, filter_keyword)
+        elif os.path.isfile(path):
+            run_from_file(path, summary_only, export_path, filter_keyword)
+        else:
+            console.print(f"[red]⚠️ Invalid path in config: {path}[/]")
+
+def main() -> None:
+    """
+    Entry point of the CLI tool.
+    Supports file, folder, or config-based log parsing.
+    """
+    args = parse_arguments()
+
+    if args.config:
+        run_from_config(args.config)
+    elif args.file:
+        run_from_file(args.file, args.summary_only, args.export, args.filter)
     elif args.folder:
-        # 🟡 3. Pass export path to folder processor (you'll update process_folder to accept this)
-        process_folder(args.folder, summary_only=args.summary_only, export_path=args.export, filter_keyword=args.filter)
+        run_from_folder(args.folder, args.summary_only, args.export, args.filter)
+
 
 if __name__ == "__main__":
     main()

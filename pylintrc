@@ -1,0 +1,34 @@
+
+[MASTER]
+ignore=venv
+extension-pkg-whitelist=
+init-hook=''
+
+[MESSAGES CONTROL]
+disable=
+    missing-docstring,
+    invalid-name,
+    line-too-long,
+    too-few-public-methods,
+    too-many-arguments,
+    too-many-instance-attributes,
+    too-many-locals,
+    too-many-branches,
+    too-many-statements,
+    duplicate-code
+
+[FORMAT]
+max-line-length=120
+
+[TYPECHECK]
+ignored-modules=
+
+[DESIGN]
+max-args=10
+max-locals=25
+max-returns=10
+max-branches=20
+max-statements=50
+max-parents=7
+max-attributes=10
+max-public-methods=20

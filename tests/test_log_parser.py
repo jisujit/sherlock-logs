@@ -14,8 +14,7 @@ Unit tests for log_parser tool functions using pytest.
 # Example usage:
 #   pytest test_log_parser.py
 
-
-from log_parser import highlight_line
+from sherlock_logs.log_parser import highlight_line
 
 def test_highlight_error():
     """Highlight line with error keyword."""

@@ -9,6 +9,7 @@
 **sherlock-logs** is a powerful Python-based CLI tool that helps developers, DevOps engineers, and sysadmins analyze log files quickly and efficiently. It highlights errors, warnings, and status entries using styled output, and provides summaries and export options.
 
 ---
+📌 Current Features reflect version: [v0.1.1](https://github.com/jisujit/sherlock-logs/releases/tag/v0.1.1)
 
 ## ✅ Features
 
